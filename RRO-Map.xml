@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root version="20190819">
+    <world>
+        <walls/>
+        <skittles/>
+        <balls/>
+        <colorFields/>
+        <images/>
+        <regions/>
+        <comments/>
+        <robot direction="0" position="0:0">
+            <startPosition id="{aac717aa-d0ff-4deb-b075-43c096610683}" y="25" direction="0" x="25"/>
+        </robot>
+    </world>
+    <robots>
+        <robot id="trikKitRobot">
+            <sensors/>
+            <wheels left="M4###output###М4###" right="M3###output###М3###"/>
+        </robot>
+    </robots>
+    <settings realisticPhysics="false" realisticSensors="false" realisticMotors="false"/>
+</root>

@@ -20,7 +20,7 @@ while True: #Бесконечный цикл
         m3.setPower(0) #Останавливаем мотор
     if mailbox.hasMessages() == True: #Если роботу пришло сообщение
         m3.setPower(0) #Останавливаем мотор
-        if mailbox.receive() == "Stop, found object": #Если робот-инспектор нашёл объект
+        if mailbox.receive() == "Stop, found object" and (e3.read() != object['encoder'][0] or e3.read() != object['encoder'][1]): #Если робот-инспектор нашёл объект
             brick.led().red() #Включаем диод красным светом
             object["encoder"].append(e3.read()) #Записываем координаты объекта
             brick.display().setBackground ("white") #Цвет фона
@@ -30,7 +30,7 @@ while True: #Бесконечный цикл
             brick.display().addLabel("Object!", 1, 1) #Выводим сообщение
             script.wait(3000) #Ждём
           
-        elif mailbox.receive() == "Stop, found breaken": #Если робот-инспектор нашёл повреждение 
+        elif mailbox.receive() == "Stop, found breaken" and (e3.read() != object['breaken'][0] or e3.read() != object['breaken'][1]): #Если робот-инспектор нашёл повреждение 
             brick.led().red() #Включаем диод красным светом
             object['breaken'].append(e3.read()) #Записываем координаты повреждения
             brick.display().setBackground ("white") #Цвет фона

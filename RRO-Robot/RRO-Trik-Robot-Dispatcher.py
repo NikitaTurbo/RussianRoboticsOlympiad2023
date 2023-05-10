@@ -9,12 +9,21 @@ object['encoder'] = [] #Запись энкодеров
 object['breaken'] = [] #Запись повреждений
 
 mailbox.connect("192.168.77.1") #Подключение к роботу-инспектору
+
+while -encoder <= 1550: #Цикл с условием
+    m3.setPower(35) #Движение мотора со скоростью 35
+    encoder=e3.read() #Считываем данные с e3
+        
+    script.wait(10) #Ждём
+
+mailbox.connect("192.168.77.1") #Подключение к роботу-инспектору
+mailbox.send(1, 'Clean') #Отправляем сообщение
 
 e3.reset() #Очищаем энкодеры
 
 while True: #Бесконечный цикл
     m3.setPower(35) #Движение мотора со скоростью 35
-    encoder=e3.read() #Считываем данные с D2 
+    encoder=e3.read() #Считываем данные с e3 
     if -encoder >= 1550: #Если робот сделал полный круг
         encoder=e3.reset() #Очищаем энкодеры
         m3.setPower(0) #Останавливаем мотор
@@ -25,7 +34,7 @@ while True: #Бесконечный цикл
             object["encoder"].append(e3.read()) #Записываем координаты объекта
             brick.display().setBackground ("white") #Цвет фона
             brick.display().setPainterColor ("red") #Цвет шрифта
-            brick.display().setPainterWidth(100) #Размер шрифта
+            brick.display().setPainterWidth(1000) #Размер шрифта
             brick.display().redraw() #Перерисовка
             brick.display().addLabel("Object!", 1, 1) #Выводим сообщение
             script.wait(3000) #Ждём

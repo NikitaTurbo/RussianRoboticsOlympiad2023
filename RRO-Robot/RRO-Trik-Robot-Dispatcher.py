@@ -8,45 +8,55 @@ object={} #Словарь записей объектов и поврежден�
 object['encoder'] = [] #Запись энкодеров
 object['breaken'] = [] #Запись повреждений
 
-mailbox.connect("192.168.77.1") #Подключение к роботу-инспектору
-
-while -encoder <= 1550: #Цикл с условием
-    m3.setPower(35) #Движение мотора со скоростью 35
-    encoder=e3.read() #Считываем данные с e3
-        
-    script.wait(10) #Ждём
-
-mailbox.connect("192.168.77.1") #Подключение к роботу-инспектору
-mailbox.send(1, 'Clean') #Отправляем сообщение
+encoder=0
+coor=0
 
 e3.reset() #Очищаем энкодеры
+number=-1
 
-while True: #Бесконечный цикл
-    m3.setPower(35) #Движение мотора со скоростью 35
+while -encoder <= 1554: #Цикл с условием
+    m3.setPower(30) #Движение мотора со скоростью 35
+    encoder=e3.read() #Считываем данные с e3    
+    script.wait(10) #Ждём    
+
+mailbox.send(2, 20) #Отправляем сообщение
+
+e3.reset()
+encoder =  e3.read() #Очищаем энкодеры
+
+while -encoder <= 1554: #Бесконечный цикл
+    m3.setPower(30) #Движение мотора со скоростью 35
     encoder=e3.read() #Считываем данные с e3 
-    if -encoder >= 1550: #Если робот сделал полный круг
-        encoder=e3.reset() #Очищаем энкодеры
-        m3.setPower(0) #Останавливаем мотор
     if mailbox.hasMessages() == True: #Если роботу пришло сообщение
         m3.setPower(0) #Останавливаем мотор
-        if mailbox.receive() == "Stop, found object" and (e3.read() != object['encoder'][0] or e3.read() != object['encoder'][1]): #Если робот-инспектор нашёл объект
-            brick.led().red() #Включаем диод красным светом
-            object["encoder"].append(e3.read()) #Записываем координаты объекта
-            brick.display().setBackground ("white") #Цвет фона
-            brick.display().setPainterColor ("red") #Цвет шрифта
-            brick.display().setPainterWidth(1000) #Размер шрифта
-            brick.display().redraw() #Перерисовка
-            brick.display().addLabel("Object!", 1, 1) #Выводим сообщение
-            script.wait(3000) #Ждём
+        encoder=e3.read()
+        #if mailbox.receive() == 0: #Если робот-инспектор нашёл объект
+            #brick.led().red() #Включаем диод красным светом
+            #object["encoder"].append(e3.read()) #Записываем координаты объекта
+            #brick.display().setBackground ("white") #Цвет фона
+            #brick.display().setPainterColor ("red") #Цвет шрифта
+            #brick.display().setPainterWidth(1000) #Размер шрифта
+            #brick.display().redraw() #Перерисовка
+            #brick.display().addLabel("Object!", 1, 1) #Выводим сообщение
+            #script.wait(10000) #Ждём
           
-        elif mailbox.receive() == "Stop, found breaken" and (e3.read() != object['breaken'][0] or e3.read() != object['breaken'][1]): #Если робот-инспектор нашёл повреждение 
-            brick.led().red() #Включаем диод красным светом
-            object['breaken'].append(e3.read()) #Записываем координаты повреждения
-            brick.display().setBackground ("white") #Цвет фона
-            brick.display().setPainterColor ("red") #Цвет шрифта
-            brick.display().setPainterWidth(1000) #Размер шрифта
-            brick.display().redraw() #Перерисовка
-            brick.display().addLabel("Breaken!!!", 1, 1) #Выводим сообщение
-            script.wait(3000) #Ждём
+        if mailbox.receive() == "10": #Если робот-инспектор нашёл повреждение 
+            number+=1;
+            object['breaken'].append(str(int((170 * -encoder) / 1554)) + ' см') #Записываем координаты повреждения
+            script.wait(4000) #Ждём
         
     script.wait(10) #Ждём
+    
+m3.setPower(0) #Движение мотора со скоростью 0    
+brick.display().setBackground ("white") #Цвет фона
+brick.display().setPainterColor ("black") #Цвет шрифта
+brick.display().setPainterWidth(1000) #Размер шрифта
+brick.display().redraw() #Перерисовка
+brick.display().addLabel('Результаты:', 1, 1) #Выводим сообщение
+brick.display().addLabel('Повреждение(я):', 1, 20) #Выводим сообщение
+for i in range(0, number+1):
+    brick.display().redraw() #Перерисовка
+    brick.display().addLabel(str(object['breaken'][i]), 1, 20 * (i+2)) #Выводим сообщение
+    script.wait(1)
+script.wait(10000)
+  

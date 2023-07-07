@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+
+        <title>Данные</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+
+    </head>
+
+    <body>
+
+        <div class="header">
+            
+            <label for="file"><img class="logo" src="скат.png"></label>
+            <input type="file" name="file" id="file" class="file" accept='text/plain'>  
+            <label for="file1"><img class="logo1" src="скат.png"></label>
+            <input type="file" name="file1" id="file1" class="file" accept='text/plain'>
+            <label for="file2"><img class="logo2" src="скат.png"></label>
+            <input type="file" name="file1" id="file2" class="file" accept="image/*" multiple="multiple" onchange="loadFile(event)" style="display: none;">
+            <h1 class="info"><a href="info.html">Данные</a></h1>
+            <h1 class="about"><a href="we.html">О нас</a></h1>
+            <h1 class="project"><a href="project.html">О проекте</a></h1>
+
+        </div>
+
+        <img class="rro" src="RRO-Image.png">
+
+        <div class="breaken" id="breaken"><span>Повреждение(я):</span><div id="pipe1"><img src="труба.png" id="pipe" height="200" width="200"/></div></div>
+        <div class="object"id="object"><span>Объект(ы):</span><div id="pipe2"><img src="труба.png" id="pipe0" height="200" width="200"/></div></div>
+        <div class="image"><span class="image-text">Картинка(и):</span><img id="output" width="200" /><img id="output1" width="200" /></div>
+
+        <script src="script.js"></script>
+
+    </body>
+</html>

@@ -1,0 +1,231 @@
+::selection {background-color: #00bfff65;}
+
+body {
+
+    background: #D6D6D6;
+    text-align: center;
+    vertical-align: center;
+
+}
+
+.header {
+
+    position: absolute;
+    width: 100.6%;
+    left: -0.6%;
+    top: -1%;
+    height: 160px;
+
+    background: rgba(0, 133, 255, 0.58);
+}
+
+.logo {
+
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    top: -15%;   
+    left: -1.7%
+
+}
+
+.rro {
+
+    position: absolute;
+    width: 783px;
+    height: 450px;
+    top: 165px;
+    left: 250px;
+
+}
+
+.breaken {
+
+    position: absolute;
+    width: 600px;
+    height: 227px;
+    top: 25.5%;
+    left: 2%;
+    text-align: left;
+
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 30px;
+
+}
+
+.object {
+
+    position: absolute;
+    width: 600px;
+    height: 227px;
+    top: 62.5%;
+    left: 2%;
+
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 30px;
+
+}
+
+.image {
+
+    position: absolute;
+    width: 600px;
+    height: 468px;
+    top: 25.5%;
+    left: 51%;
+
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 30px;
+    display: inline-block;
+
+}
+
+span {
+
+    position: absolute;
+
+    font-family: 'Comfortaa', cursive;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 61px;
+
+    color: #000000;
+    left: 2.3%;
+    top: -4.5%;
+
+}
+
+.image-text{
+
+    position: absolute;
+
+    font-family: 'Comfortaa', cursive;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 61px;
+
+    color: #000000;
+    left: 2.3%;
+    top: -1.5%;
+
+}
+
+.info {
+
+    position: absolute;
+
+    font-family: 'Comfortaa', cursive;
+    color: white;
+    left: 46%;
+    top: 25%;
+
+}
+
+.about {
+
+    position: absolute;
+
+    font-family: 'Comfortaa', cursive;
+    color: white;
+    left: 64%;
+    top: 25%;
+
+}
+
+.project {
+
+    position: absolute;
+
+    font-family: 'Comfortaa', cursive;
+    color: white;
+    left: 80%;
+    top: 25%;
+
+}
+
+h1:hover, a:hover {
+
+    color: rgba(235, 235, 235, 0.779);
+
+}
+
+a {text-decoration: none; color: white;}
+
+.file {
+
+    z-index: -1;
+    opacity: 0;
+
+}
+
+.logo1 {
+
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    top: -15%;   
+    left: 8%
+
+}
+
+.logo2 {
+
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    top: -15%;   
+    left: 17.7%
+
+}
+
+.text {position: absolute; white-space: pre-line; top: 9%; left: 3%;}
+
+p {
+
+    text-align: left;
+    font-family: 'Comfortaa', cursive;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 25px;
+
+    color: #000000;
+}
+
+#output {
+
+    position: absolute;
+    top: 9%;
+    left: 3%;
+
+}
+
+#output1 {
+
+    position: absolute;
+    top: 9%;
+    left: 23%;
+
+}
+
+#pipe {position: absolute;}
+/* #pipe0 {position: absolute;} */
+
+#pipe1 {position: absolute; width: 200px; height: 200px;  top: 7%; left: 53%;}
+#pipe2 {position: absolute; width: 200px; height: 200px;  top: 7%; left: 53%;}
+
+.dote1, .dote2 {background-color: rgb(255, 0, 0); height: 15px; width: 15px; border-radius: 100%;}
+
+.obj1, .obj2 {background-color: rgb(255, 0, 0); height: 15px; width: 15px; border-radius: 100%;}
+
+
+@keyframes glowing {
+    0% {box-shadow: 0 0 10px #d74100; }
+    50% {box-shadow: 0 0 20px #ff4800; }
+    100% {box-shadow: 0 0 10px #ff2929; }
+}
+
+.dote1, .dote2, .obj1, .obj2 {
+    animation: glowing 1300ms infinite;
+}

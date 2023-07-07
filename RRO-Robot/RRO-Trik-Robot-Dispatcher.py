@@ -1,62 +1,77 @@
-import sys #Импортируем библиотеку sys
-import time #Импортируем библиотеку time
+import sys
+import time
 
-m3=brick.motor("M3") #Делаем цифровую индентификацию M3
-e3=brick.encoder("E3") #Делаем цифровую индентификацию E3
+m4 = brick.motor("M4")
+e4 = brick.encoder("E4")
 
-object={} #Словарь записей объектов и повреждений
-object['encoder'] = [] #Запись энкодеров
-object['breaken'] = [] #Запись повреждений
+object = []
+breaken = []
 
-encoder=0
-coor=0
+encoder = 0
+coor = 0
+number = 0
 
-e3.reset() #Очищаем энкодеры
-number=-1
+e4.reset()
+encoder = e4.read()
 
-while -encoder <= 1554: #Цикл с условием
-    m3.setPower(30) #Движение мотора со скоростью 35
-    encoder=e3.read() #Считываем данные с e3    
-    script.wait(10) #Ждём    
+while encoder <= 3077:
+    m4.setPower(45) 
+    encoder = e4.read()  
+    script.wait(1)  
 
-mailbox.send(2, 20) #Отправляем сообщение
+mailbox.send(2, 20)
 
-e3.reset()
-encoder =  e3.read() #Очищаем энкодеры
+m4.setPower(0)
+script.wait(20000)
 
-while -encoder <= 1554: #Бесконечный цикл
-    m3.setPower(30) #Движение мотора со скоростью 35
-    encoder=e3.read() #Считываем данные с e3 
-    if mailbox.hasMessages() == True: #Если роботу пришло сообщение
-        m3.setPower(0) #Останавливаем мотор
-        encoder=e3.read()
-        #if mailbox.receive() == 0: #Если робот-инспектор нашёл объект
-            #brick.led().red() #Включаем диод красным светом
-            #object["encoder"].append(e3.read()) #Записываем координаты объекта
-            #brick.display().setBackground ("white") #Цвет фона
-            #brick.display().setPainterColor ("red") #Цвет шрифта
-            #brick.display().setPainterWidth(1000) #Размер шрифта
-            #brick.display().redraw() #Перерисовка
-            #brick.display().addLabel("Object!", 1, 1) #Выводим сообщение
-            #script.wait(10000) #Ждём
+e4.reset()
+encoder =  e4.read()
+
+while encoder <= 3077:
+    m4.setPower(40)
+    encoder = e4.read()
+    if mailbox.hasMessages() == True:
+        encoder = e4.read()
+        message = mailbox.receive()
+        if message == "20":
+            coor += 1
+            object.append(str(int((170 * encoder) / 3077)) + ' см')
+            script.writeToFile("object.txt", object[coor - 1] + "\n")
+            script.wait(10)
           
-        if mailbox.receive() == "10": #Если робот-инспектор нашёл повреждение 
-            number+=1;
-            object['breaken'].append(str(int((170 * -encoder) / 1554)) + ' см') #Записываем координаты повреждения
-            script.wait(4000) #Ждём
+        if message == "10":
+            m4.setPower(0)
+            number += 1
+            breaken.append(str(int((170 * encoder) / 3077)) + ' см')
+            script.writeToFile("breake.txt", breaken[number - 1] + "\n")
+            script.wait(4000)
+            m4.setPower(40)
+            encoder = e4.read()
+            mailbox.send(2, 30)
         
-    script.wait(10) #Ждём
+    script.wait(10)
     
-m3.setPower(0) #Движение мотора со скоростью 0    
-brick.display().setBackground ("white") #Цвет фона
-brick.display().setPainterColor ("black") #Цвет шрифта
-brick.display().setPainterWidth(1000) #Размер шрифта
-brick.display().redraw() #Перерисовка
-brick.display().addLabel('Результаты:', 1, 1) #Выводим сообщение
-brick.display().addLabel('Повреждение(я):', 1, 20) #Выводим сообщение
-for i in range(0, number+1):
-    brick.display().redraw() #Перерисовка
-    brick.display().addLabel(str(object['breaken'][i]), 1, 20 * (i+2)) #Выводим сообщение
+m4.setPower(0)
+
+brick.display().setBackground ("white")
+brick.display().setPainterColor ("black")
+brick.display().setPainterWidth(1000)
+brick.display().redraw()
+
+brick.display().addLabel('Результаты:', 1, 1)
+brick.display().addLabel('Повреждение(я):', 1, 20) 
+
+for i in range(2, number + 2):
+    brick.display().redraw()
+    brick.display().addLabel(breaken[i - 2], 1, 20 * i)
     script.wait(1)
-script.wait(10000)
+    
+brick.display().addLabel('Объект(ы):', 1, 20 * (number + 2))
+
+for i in range(number + 3, coor + number + 3):
+    brick.display().redraw() #Перерисовка
+    brick.display().addLabel(object[i - (number + 3)], 1, 20 * (i))
+    script.wait(1)
+    
+script.wait(300000)
   
